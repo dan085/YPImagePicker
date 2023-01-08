@@ -8,16 +8,23 @@
 
 import UIKit
 import Stevia
+import MaterialComponents.MaterialActivityIndicator
 
 class YPAlbumView: UIView {
     
     let tableView = UITableView()
-    let spinner = UIActivityIndicatorView(style: .gray)
+    let spinner = MDCActivityIndicator()
     
     convenience init() {
         self.init(frame: .zero)
         
-        subviews(
+        spinner.sizeToFit()
+        spinner.cycleColors = [UIColor.gray]
+        spinner.radius = 11
+        spinner.strokeWidth=2
+        
+        
+        sv(
             tableView,
             spinner
         )

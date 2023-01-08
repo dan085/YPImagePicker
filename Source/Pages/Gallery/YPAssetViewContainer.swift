@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import Stevia
 import AVFoundation
+import MaterialComponents.MaterialActivityIndicator
+
 
 /// The container for asset (video or image). It containts the YPGridView and YPAssetZoomableView.
 final class YPAssetViewContainer: UIView {
@@ -18,6 +20,7 @@ final class YPAssetViewContainer: UIView {
     public let curtain = UIView()
     public let spinnerView = UIView()
     public let squareCropButton = UIButton()
+    
     public let multipleSelectionButton: UIButton = {
         let v = UIButton()
         v.setImage(YPConfig.icons.multipleSelectionOffIcon, for: .normal)
@@ -26,8 +29,9 @@ final class YPAssetViewContainer: UIView {
     public var onlySquare = YPConfig.library.onlySquare
     public var isShown = true
     public var spinnerIsShown = false
-    
-    private let spinner = UIActivityIndicatorView(style: .white)
+  
+    private let spinner = MDCActivityIndicator()
+    //private let spinner = UIActivityIndicatorView(style: .white)
     private var shouldCropToSquare = YPConfig.library.isSquareByDefault
     private var isMultipleSelectionEnabled = false
 
@@ -36,6 +40,7 @@ final class YPAssetViewContainer: UIView {
     init(frame: CGRect, zoomableView: YPAssetZoomableView) {
         self.zoomableView = zoomableView
         super.init(frame: frame)
+       
 
         self.zoomableView.zoomableViewDelegate = self
 
@@ -61,9 +66,12 @@ final class YPAssetViewContainer: UIView {
         addGestureRecognizer(touchDownGR)
 
         // TODO: Add tap gesture to play/pause. Add double tap gesture to square/unsquare
-
-        subviews(
-            spinnerView.subviews(
+        spinner.sizeToFit()
+        spinner.cycleColors = [UIColor.white]
+        spinner.radius = 11
+        spinner.strokeWidth=2
+        sv(
+            spinnerView.sv(
                 spinner
             ),
             curtain
@@ -81,14 +89,14 @@ final class YPAssetViewContainer: UIView {
         if !onlySquare {
             // Crop Button
             squareCropButton.setImage(YPConfig.icons.cropIcon, for: .normal)
-            subviews(squareCropButton)
+            sv(squareCropButton)
             squareCropButton.size(42)
             |-15-squareCropButton
             squareCropButton.Bottom == self.Bottom - 15
         }
 
         // Multiple selection button
-        subviews(multipleSelectionButton)
+        sv(multipleSelectionButton)
         multipleSelectionButton.size(42).trailing(15)
         multipleSelectionButton.Bottom == self.Bottom - 15
     }

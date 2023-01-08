@@ -7,19 +7,27 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialActivityIndicator
 
 struct YPLoaders {
 
     static var defaultLoader: UIBarButtonItem {
-        let spinner = UIActivityIndicatorView(style: .gray)
+        //let spinner = UIActivityIndicatorView(style: .gray)
+        let spinner = MDCActivityIndicator()
+        
+        spinner.sizeToFit()
+        spinner.cycleColors = [UIColor.gray]
+        spinner.radius = 11
+        spinner.strokeWidth=2
+        
         if let spinnerColor = YPConfig.colors.navigationBarActivityIndicatorColor {
-            spinner.color = spinnerColor
+            spinner.cycleColors = [spinnerColor]
         } else {
             if #available(iOS 13, *) {
                 let spinnerColor = UIColor { trait -> UIColor in
                     return trait.userInterfaceStyle == .dark ? .white : .gray
                 }
-                spinner.color = spinnerColor
+                spinner.cycleColors = [spinnerColor]
             }
         }
         spinner.startAnimating()

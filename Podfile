@@ -5,7 +5,7 @@ use_frameworks!
 target 'Example' do
 
   # Pods for YPImagePickerExample
-  pod 'SteviaLayout', '= 5.1.2'
+  pod 'SteviaLayout', '= 4.7.3'
   pod 'PryntTrimmerView', '= 4.0.2'
-
+  pod 'MaterialComponents/ActivityIndicator'#alternativa indicator circle de material a SpringIndicator
 end
